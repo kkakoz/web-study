@@ -1,0 +1,75 @@
+<html>
+    <header>
+        <title>test</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </header>
+
+    <body>
+        <div id="test">
+            <p>Has published books:</p>
+            <!-- <span>{{ author.books.length > 0 ? 'Yes' : 'No' }}</span> -->
+            <span>{{ publishedBooksMessage }}</span>
+        </div>
+
+        <div id="watch-example">
+            <p>
+              Ask a yes/no question:
+              <input v-model="question" />
+            </p>
+            <p>{{ answer }}</p>
+        </div>
+    </body>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    author: {
+                        name: 'John Doe',
+                        books: [
+                        'Vue 2 - Advanced Guide',
+                        'Vue 3 - Basic Guide',
+                        'Vue 4 - The Mystery'
+                        ]
+                    }
+                }
+            },
+            computed: {  // 计算属性是缓存的,响应式依赖发生变化时重新计算
+                publishedBooksMessage() {
+                    return this.author.books.length > 0 ? 'Yes' : 'No'
+                }
+            }
+        })
+        app.mount('#test')
+
+        const watchExampleVM = Vue.createApp({
+            data() {
+            return {
+                question: '',
+                answer: 'Questions usually contain a question mark. ;-)'
+            }
+            },
+            watch: {
+            // whenever question changes, this function will run
+            question(newQuestion, oldQuestion) {
+                if (newQuestion.indexOf('?') > -1) {
+                this.getAnswer()
+                }
+            }
+            },
+            methods: {
+            getAnswer() {
+                this.answer = 'Thinking...'
+                axios
+                .get('https://yesno.wtf/api')
+                .then(response => {
+                    this.answer = response.data.answer
+                })
+                .catch(error => {
+                    this.answer = 'Error! Could not reach the API. ' + error
+                })
+            }
+            }
+        }).mount('#watch-example')
+    </script>
+</html>

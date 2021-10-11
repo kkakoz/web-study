@@ -1,0 +1,48 @@
+<html>
+    <header>
+        <title>test</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </header>
+
+    <body>
+        <div id="test">
+            <span>Message: {{ msg }}</span><br/>
+            <span v-once>这个将不会改变: {{ msg }}</span>
+            <p>Using mustaches: {{ rawHtml }}</p>
+            <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+
+            <button v-bind:disabled="isButtonDisabled">按钮</button>
+
+            {{ number + 1 }}
+            {{ ok ? 'Yes': 'No'}}
+
+            <p v-if="seen">现在你看到我了</p>
+
+            <a :href="url"> ... </a>
+            <br>
+            <a @click="doSomething"> ... </a>
+        </div>
+    </body>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    msg: 'message',
+                    rawHtml: '<span style="color: red">This should be red.</span>',
+                    isButtonDisabled: true,
+                    number: 1,
+                    ok: false,
+                    seen: true,
+                    url: 'url'
+                }
+            },
+            methods: {
+                doSomething() {
+                    alert("do something")
+                }
+            }
+        })
+        app.mount('#test')
+    </script>
+</html>

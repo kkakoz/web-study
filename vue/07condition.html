@@ -1,0 +1,30 @@
+<html>
+    <header>
+        <title>test</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </header>
+
+    <body>
+        <div id="test">
+            <h1 v-if="awesome">Vue is awesome!</h1>
+            <h1 v-else>Oh no 😢</h1>
+            <button @click="ddd()">button</button>
+        </div>
+    </body>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    awesome: true
+                }
+            },
+            methods: {
+                ddd() {
+                    this.awesome = !this.awesome
+                }
+            }
+        })
+        app.mount('#test')
+    </script>
+</html>

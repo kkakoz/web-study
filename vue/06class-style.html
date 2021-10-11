@@ -1,0 +1,36 @@
+<html>
+    <header>
+        <title>test</title>
+        <script src="https://unpkg.com/vue@next"></script>
+    </header>
+
+    <body>
+        <div id="test">
+            <div
+            class="static"
+            :class="{ active: isActive, 'text-danger': hasError }">
+            div1
+            </div>
+
+            <div :class="[activeClass, errorClass]">div2</div>
+
+            <div :style="{ color: activeColor, fontSize: fontSize + 'px' }">div3</div>
+        </div>
+    </body>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    isActive: true,
+                    hasError: false,
+                    activeClass: 'active',
+                    errorClass: 'text-danger',
+                    activeColor: 'red',
+                    fontSize: 30
+                }
+            },
+        })
+        app.mount('#test')
+    </script>
+</html>
